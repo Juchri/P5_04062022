@@ -21,23 +21,23 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="/main">Home</a>
+								<a class="nav-link active" aria-current="page" href="index.php?p=main">Home</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/posts">Posts</a>
+								<a class="nav-link" href="index.php?p=posts">Posts</a>
 							</li>
 						</ul>
 						<ul class="navbar-nav ml-auto">
 							{% if session.user.email is not null %}
 							<li class="nav-item">
-								<a class="nav-link" href="/users/profil">Profil</a>
+								<a class="nav-link" href="index.php?p=profil">Profil</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/users/logout">Déconnexion</a>
+								<a class="nav-link" href="index.php?p=logout">Déconnexion</a>
 							</li>
 							{% else %}
 							<li class="nav-item">
-								<a class="nav-link" href="/users/login">Connexion</a>
+								<a class="nav-link" href="index.php?p=login">Connexion</a>
 							</li>
 							{% endif %}
             			</ul>

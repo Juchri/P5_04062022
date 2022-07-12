@@ -14,7 +14,7 @@ class Db extends PDO
 
     private const DB_HOST = 'localhost';
     private const DB_USER = 'root';
-    private const DB_PASS = '';
+    private const DB_PASS = 'root';
     private const DB_NAME = 'blog_php';
 
     private function __construct()
