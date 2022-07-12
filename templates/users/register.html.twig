@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if session.erreur is not null %}
+        <div class="alert alert-danger" role="alert">
+            {{ session.erreur}}
+        </div>
+    {% endif %}
+    {% if session.message is not null %}
+        <div class="alert alert-success" role="alert">
+            {{ session.message}}
+        </div>
+    {% endif %}
+    <h2>Création de compte</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Valider</button>
+    </form>
+    <a href="/users/login" class="btn btn-default mt-2">Se connecter</a>
+    
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if session.erreur is not null %}
+        <div class="alert alert-danger" role="alert">
+            {{ session.erreur}}
+        </div>
+    {% endif %}
+    <h2>ICI c'est La page d'accueil</h2>
+{% endblock %}

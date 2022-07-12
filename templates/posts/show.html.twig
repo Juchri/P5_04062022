@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2>Page d'un post</h2>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <h4>Commentaires</h4>
+    {% if postComments|length > 0 %}
+        {% for comment in postComments %}
+        <p>
+            {{ comment.content}}
+            <span>
+                at {{ comment.created_at|date('d/m/y')}}
+            </span>
+        </p>
+        {% endfor %}
+    {% else %}
+        Pas de commentaires !
+    {% endif %}
+
+    {% if session.user.email is not null %}
+    <form method="post">
+        <div class="form-group">
+            <input type="text" name="comment" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Ajouter</button>
+    </form>
+        
+    {% endif %}
+    <h2><a href="/posts">Liste de posts</a></h2>
+{% endblock %}
