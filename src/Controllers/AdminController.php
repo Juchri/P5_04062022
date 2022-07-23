@@ -7,7 +7,7 @@ class AdminController extends Controller
 {
     public function index() {
         if($this->isAdmin()){
-            $this->twig->display('admin/index.html.twig');     
+            $this->twig->display('admin/index.html.twig');
         }
     }
 

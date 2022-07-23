@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Core\Form;
 use App\Models\UsersModel;
+use App\Models\CommentsModel;
 
 class UsersController extends Controller
 {
@@ -34,7 +35,7 @@ class UsersController extends Controller
                 // Le mot de passe est bon
                 // On crée la session
                 $user->setSession();
-                header('Location: /posts');
+                header('Location: ?p=posts');
                 exit;
             }else{
                 // Mauvais mot de passe
@@ -87,8 +88,47 @@ class UsersController extends Controller
         unset($_SESSION['user']);
         unset($_SESSION['message']);
         unset($_SESSION['erreur']);
-        header('Location: /users/login');
+        header('Location: ?p=users/login');
         exit;
+    }
+
+    /*
+
+Nouveautés
+    */
+    public function profile(int $id)
+    {
+        // On instancie le modèle
+        $usersModel = new UsersModel;
+
+        // On va chercher toutes les commentaires
+        $profile = $usersModel->find($id);
+
+        // Comment section
+        $commentModel = new CommentsModel;
+
+         // Unvalidated comments
+        $CommentsUnvalidated = $commentModel->findBy(['is_validated' => '0']);
+
+        // We find the id of the comment in bdd
+        $commentId = $commentModel->getId();
+
+                // Il doit manquer une boucle ici : comment relier les ids des commentaires à celuiq qu'on veut valider ?
+
+
+            if (isset($_POST['validated']) && $_POST['validated'] == '1')
+            {
+                $now = new DateTime();
+                $nowFormat = $now->format('Y-m-d');
+                $commentModel->setIsValidated('1')
+                             ->setValidatedAt($now);
+                header(('Location: ?p=users/profile/'.$id));
+            }
+
+
+        // Generating view
+        $this->twig->display('users/profile.html.twig', compact('profile','CommentsUnvalidated'));
+
     }
 
 }

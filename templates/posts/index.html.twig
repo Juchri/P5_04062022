@@ -3,7 +3,7 @@
 {% block body %}
     <h2>liste des posts</h2>
     {% for post in posts %}
-        <h2><a href="/posts/show/{{post.id}}">{{ post.title }}</a></h2>
+        <h2><a href="index.php?p=posts/show/{{post.id}}">{{ post.title }}</a></h2>
         <p>{{ post.content }}</p>
     {% endfor %}
 {% endblock %}

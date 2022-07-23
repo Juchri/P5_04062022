@@ -115,4 +115,25 @@ class CommentsModel extends Model
         return $this;
     }
 
+
+       /**
+     * Get the value of is_validated
+     */
+    public function getIsValidated()
+    {
+        return $this->is_validated;
+    }
+
+    /**
+     * Set the value of post_id
+     *
+     * @return  self
+     */
+    public function setIsValidated($isValidated)
+    {
+        $this->is_validated = $isValidated;
+
+        return $this;
+    }
+
 }

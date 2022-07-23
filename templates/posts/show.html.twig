@@ -5,8 +5,8 @@
     <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
     <h4>Commentaires</h4>
-    {% if postComments|length > 0 %}
-        {% for comment in postComments %}
+    {% if postCommentsValidated|length > 0 %}
+        {% for comment in postCommentsValidated %}
         <div class="bg-light p-3 w-75">
             <p>{{ comment.content}}</p>
             <span class="font-italic">
