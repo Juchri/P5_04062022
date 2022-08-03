@@ -74,7 +74,7 @@ class UsersController extends Controller
             $user->create();
             unset($_SESSION['erreur']);
             $_SESSION['message'] = "Votre compte a bien été crée";
-            header('Location: /users/login');
+            header('Location: index.php?p=/users/login');
         }
 
         $this->twig->display('users/register.html.twig');     
@@ -122,7 +122,7 @@ Nouveautés
                 $nowFormat = $now->format('Y-m-d');
                 $commentModel->setIsValidated('1')
                              ->setValidatedAt($now);
-                header(('Location: ?p=users/profile/'.$id));
+                header(('Location: index.php?p=users/profile/'.$id));
             }
 
 

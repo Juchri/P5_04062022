@@ -18,13 +18,13 @@
         <div class="w-25 my-2">
             <form method="post">
                 <input style="height:20px;width:20px;" class="form-check-input" type="checkbox" value="1" name="validated" id="validated{{ comment.id }}">
-            </form>
+           
         </div>
     </div>
     {% endfor %}
 
     <button type="submit" class="btn btn-primary mt-2">Valider</button>
-
+    </form>
 
 
     {% if session.user.roles == '1' %}
