@@ -51,7 +51,7 @@ class PostsController extends Controller
                     $_SESSION['message'] = "Votre commentaire est bien ajouté !un admin doit le valider avant de l'afficher";
                 }
                 $commentModel->create();
-                header(('Location: /posts/show/'.$id));
+                header(('Location: index.php?p=posts/show/'.$id));
             }
         }
 

@@ -11,6 +11,11 @@ class AdminController extends Controller
         }
     }
 
+    public function admin()
+    {
+        $this->twig->display('admin/index.html.twig');     
+    }
+
         /**
      * Vérifie si on est admin
      * @return true 

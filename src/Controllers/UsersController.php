@@ -81,7 +81,7 @@ class UsersController extends Controller
             $user->create();
             unset($_SESSION['erreur']);
             $_SESSION['message'] = "Votre compte a bien été crée";
-            header('Location: ?p=users/login');
+        header('Location: ?p=users/login');
         }
 
         $this->twig->display('users/register.html.twig');     
@@ -91,10 +91,13 @@ class UsersController extends Controller
     {
         $this->twig->display('users/profil.html.twig');     
     }
+
+
     /**
      * Déconnexion de l'utilisateur
      * @return exit 
      */
+
     public function logout(){
         unset($_SESSION['user']);
         unset($_SESSION['message']);
