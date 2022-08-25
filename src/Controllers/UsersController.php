@@ -3,7 +3,6 @@ namespace App\Controllers;
 
 use App\Core\Form;
 use App\Models\UsersModel;
-use App\Models\CommentsModel;
 
 class UsersController extends Controller
 {
@@ -23,7 +22,7 @@ class UsersController extends Controller
             if(!$userArray){
                 // On envoie un message de session
                 $_SESSION['erreur'] = 'L\'adresse e-mail et/ou le mot de passe est incorrect';
-                header('Location: /users/login');
+                header('Location: index.php?p=/users/login');
                 exit;
             }
 
@@ -40,7 +39,7 @@ class UsersController extends Controller
             }else{
                 // Mauvais mot de passe
                 $_SESSION['erreur'] = 'L\'adresse e-mail et/ou le mot de passe est incorrect';
-                header('Location: /users/login');
+                header('Location: index.php?p=/users/login');
                 exit;
             }
 
@@ -56,8 +55,14 @@ class UsersController extends Controller
     public function register()
     {
         // On vérifie si le formulaire est valide
-        if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])){
+        if(
+            isset($_POST['firstName']) && !empty($_POST['firstName']) &&
+            isset($_POST['lastName']) && !empty($_POST['lastName']) &&
+            isset($_POST['email']) && !empty($_POST['email']) &&
+            isset($_POST['password']) && !empty($_POST['password'])){
             // On "nettoie" l'adresse email
+            $firstName = strip_tags($_POST['firstName']);
+            $lastName = strip_tags($_POST['lastName']);
             $email = strip_tags($_POST['email']);
 
             // On chiffre le mot de passe
@@ -66,7 +71,9 @@ class UsersController extends Controller
             // On hydrate l'utilisateur
             $user = new UsersModel;
 
-            $user->setEmail($email)
+            $user->setFirst_name($firstName)
+                ->setLast_name($lastName)
+                ->setEmail($email)
                 ->setPassword($pass)
             ;
 
@@ -74,12 +81,16 @@ class UsersController extends Controller
             $user->create();
             unset($_SESSION['erreur']);
             $_SESSION['message'] = "Votre compte a bien été crée";
-            header('Location: index.php?p=/users/login');
+            header('Location: ?p=users/login');
         }
 
         $this->twig->display('users/register.html.twig');     
     }
 
+    public function profil()
+    {
+        $this->twig->display('users/profil.html.twig');     
+    }
     /**
      * Déconnexion de l'utilisateur
      * @return exit 
@@ -88,47 +99,8 @@ class UsersController extends Controller
         unset($_SESSION['user']);
         unset($_SESSION['message']);
         unset($_SESSION['erreur']);
-        header('Location: ?p=users/login');
+        header('Location: index.php?p=/users/login');
         exit;
-    }
-
-    /*
-
-Nouveautés
-    */
-    public function profile(int $id)
-    {
-        // On instancie le modèle
-        $usersModel = new UsersModel;
-
-        // On va chercher toutes les commentaires
-        $profile = $usersModel->find($id);
-
-        // Comment section
-        $commentModel = new CommentsModel;
-
-         // Unvalidated comments
-        $CommentsUnvalidated = $commentModel->findBy(['is_validated' => '0']);
-
-        // We find the id of the comment in bdd
-        $commentId = $commentModel->getId();
-
-                // Il doit manquer une boucle ici : comment relier les ids des commentaires à celuiq qu'on veut valider ?
-
-
-            if (isset($_POST['validated']) && $_POST['validated'] == '1')
-            {
-                $now = new DateTime();
-                $nowFormat = $now->format('Y-m-d');
-                $commentModel->setIsValidated('1')
-                             ->setValidatedAt($now);
-                header(('Location: index.php?p=users/profile/'.$id));
-            }
-
-
-        // Generating view
-        $this->twig->display('users/profile.html.twig', compact('profile','CommentsUnvalidated'));
-
     }
 
 }

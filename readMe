@@ -11,3 +11,9 @@ Show = only validated comments
 
 3- Page admin :
 Commencer : 2 onglets (comments + posts)
+
+
+author name +
+is_valid dans la base de donnée
+
+ROLE_ADMIN dans la base de donnée
