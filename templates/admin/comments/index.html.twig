@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2>Gestion des commentaires</h2>
+    <hr />
+    {% if allComments|length > 0 %}
+        {% for comment in allComments %}
+        <div class="row">
+            <p class="col-md-6">
+                {{ comment.content}}
+                <span>
+                    at {{ comment.created_at|date('d/m/y')}}
+                </span>
+            </p>
+            <div class="col-md-6">
+                <form method="post">
+                    <input type="hidden" name="commentId" value="{{comment.id}}" />
+                    {% if comment.is_valid == 0 %}
+                    <button type="submit" class="btn btn-success mt-2" name="valider">Valider</button>
+                    {% endif %}
+                    <button type="submit" class="btn btn-danger mt-2" name="supprimer">Supprimer</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        Pas de commentaires !
+    {% endif %}
+{% endblock %}
