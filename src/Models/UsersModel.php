@@ -5,6 +5,8 @@ class UsersModel extends Model
 {
     protected $id;
     protected $email;
+    protected $first_name;
+    protected $last_name;
     protected $password;
     protected $roles;
 
@@ -32,12 +34,13 @@ class UsersModel extends Model
     {
         $_SESSION['user'] = [
             'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
             'email' => $this->email,
             'roles' => $this->roles
         ];
         unset($_SESSION['erreur']);
     }
-
 
     /**
      * Get the value of id
@@ -120,4 +123,47 @@ class UsersModel extends Model
 
         return $this;
     }
+
+        /**
+     * Get the value of first_name
+     */ 
+    public function getFirst_name()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * Set the value of first_name
+     *
+     * @return  self
+     */ 
+    public function setFirst_name($firstName)
+    {
+        $this->first_name = $firstName;
+
+        return $this;
+    }
+
+      /**
+     * Get the value of last_name
+     */ 
+    public function getLast_name()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * Set the value of last_name
+     *
+     * @return  self
+     */ 
+    public function setLast_name($last_name)
+    {
+        $this->last_name = $last_name;
+
+        return $this;
+    }
 }
+
+
+

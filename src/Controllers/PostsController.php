@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use App\Models\CommentsModel;
 use App\Models\PostsModel;
+use App\Utils\Session;
+
 use DateTime;
 
 class PostsController extends Controller
@@ -36,17 +38,25 @@ class PostsController extends Controller
         $post = $postsModel->find($id);
 
         $commentModel = new CommentsModel;
-        $postComments = $commentModel->findBy(['post_id' => $id]);
-        if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])) {
-            if (isset($_POST['comment']) && !empty($_POST['comment'])) {
-                $content = strip_tags($_POST['comment']);
-                $commentModel->setContent($content)
-                             ->setUserId($_SESSION['user']['id'])
-                             ->setPostId($id);
-                $commentModel->create(); 
-                header(('Location: /posts/show/'.$id));
+        $postComments = $commentModel->findBy(['post_id' => $id, 'is_valid' => 1]);
+
+        if ((Session::get('user')) && !empty(Session::get('user','id'))) {
+                if (isset($_POST['comment']) && !empty($_POST['comment'])) {
+                    $content = strip_tags($_POST['comment']);
+                    $commentModel->setContent($content)
+                                 ->setUserId(Session::get('user', 'id'))
+                                 ->setPostId($id)
+                                 ->setAuthor(Session::get('user', 'first_name') . ' ' . Session::get('user', 'last_name'));
+
+                    if (in_array('ROLE_ADMIN', Session::get('user', 'roles'))) {
+                        $commentModel->setIsValid(1);
+                    } else {
+                      $session->set('message',"Votre commentaire est bien ajouté ! Un admin doit le valider avant de l'afficher");
+                    }
+                    $commentModel->create();
+                    header(('Location: index.php?p=posts/show/'.$id));
+                }
             }
-        }
 
         // On envoie à la vue
         $this->twig->display('posts/show.html.twig', compact('post', 'postComments'));

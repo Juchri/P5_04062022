@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2>Gestion des posts</h2>
+    <a href="index.php?p=admin/add" class="btn btn-success mt-2">Nouveau post</a>
+    <hr />
+    {% if posts|length > 0 %}
+        {% for post in posts %}
+        <div class="row">
+            <p class="col-md-6">
+                {{ post.title}}
+                <span>
+                    at {{ post.created_at|date('d/m/Y')}}
+                </span>
+            </p>
+            <div class="col-md-6">
+                <form method="post">
+                    <input type="hidden" name="postId" value="{{post.id}}" />
+                    <button type="submit" class="btn btn-danger mt-2" name="supprimer">Supprimer</button>
+                    <a href="index.php?p=admin/update/{{post.id}}" class="btn btn-primary mt-2">Modifier</a>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        Pas de posts !
+    {% endif %}
+{% endblock %}

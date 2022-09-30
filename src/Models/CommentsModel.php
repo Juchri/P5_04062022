@@ -6,12 +6,25 @@ class CommentsModel extends Model
     protected $id;
     protected $content;
     protected $created_at;
+    protected $is_valid;
     protected $user_id;
     protected $post_id;
+    protected $author;
 
     public function __construct()
     {
         $this->table = 'comments';
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+        return $this;
     }
 
     /**
@@ -115,4 +128,23 @@ class CommentsModel extends Model
         return $this;
     }
 
+    /**
+     * Get the value of is_valid
+     */ 
+    public function getIsValid()
+    {
+        return $this->is_valid;
+    }
+
+    /**
+     * Set the value of is_valid
+     *
+     * @return  self
+     */ 
+    public function setIsValid($isValid)
+    {
+        $this->is_valid = $isValid;
+
+        return $this;
+    }
 }

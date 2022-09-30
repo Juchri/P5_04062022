@@ -1,0 +1,15 @@
+Semaine pro (lundi 26 juillet - 20h):
+
+1- Commentaires :
+
+Is validated = true only when admin validates the comment
+Default => is validated is false
+Show = only validated comments
+
+2- Page acceuil :
++ formualaire contact !!!!
+
+3- Page admin :
+Commencer : 2 onglets (comments + posts)
+
+Lien github : https://github.com/MedBenYsf/php-mvc-twig

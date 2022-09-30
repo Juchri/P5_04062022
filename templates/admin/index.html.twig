@@ -1,5 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h2>Bienvenue dans l'administration</h2>
+    <h2 class="mt-4">Bienvenue dans l'administration</h2>
+    <ul class="mb-2 mb-lg-0 list-unstyled row">
+        <li class="m-2 alert alert-primary col-4 d-inline">
+            <a class="nav-link active" aria-current="page"  href="index.php?p=admin/posts">Gestion de posts</a>
+        </li>
+        <li class="m-2 alert alert-primary col-4 d-inline">
+            <a class="nav-link" href="index.php?p=admin/comments">Gestion de commentaires</a>
+        </li>
+    </ul>
 {% endblock %}
