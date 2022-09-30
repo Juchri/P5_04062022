@@ -42,7 +42,6 @@ class UsersModel extends Model
         unset($_SESSION['erreur']);
     }
 
-
     /**
      * Get the value of id
      */ 
@@ -165,3 +164,6 @@ class UsersModel extends Model
         return $this;
     }
 }
+
+
+
