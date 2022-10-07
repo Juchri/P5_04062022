@@ -23,12 +23,8 @@ class Session{
         unset($_SESSION[$key]);
     }
 
-    public static function get($key, $item = NULL){
+    public static function get($key){
         if (isset($_SESSION[$key])) {
-            if(isset($item) && isset($_SESSION[$key][$item])) {
-                return $_SESSION[$key][$item];
-            }
-
             return $_SESSION[$key];
         }
 

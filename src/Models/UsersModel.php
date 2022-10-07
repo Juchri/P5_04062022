@@ -33,15 +33,15 @@ class UsersModel extends Model
      */
     public function setSession() // Session utile ici ? 
     {
-        
-        $_SESSION['user'] = [
+        Session::set('user',[
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
             'roles' => $this->roles
-        ];
+        ]);
 
+        //Session::get('user')['id'];
        // unset($_SESSION['erreur']);
         Session::forget('erreur'); 
     }

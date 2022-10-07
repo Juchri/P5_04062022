@@ -60,8 +60,8 @@ class AdminController extends Controller
             $postModel = new PostsModel;
 
             if (isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['content']) && !empty($_POST['content']) ) {
-                $title =  wp_unslash(strip_tags($_POST['title']));
-                $content = wp_unslash(strip_tags($_POST['content']));
+                $title = filter_input(INPUT_POST, 'title');
+                $content = filter_input(INPUT_POST, 'content');
                 $postModel
                     ->settitle($title)
                     ->setContent($content)
@@ -108,7 +108,7 @@ class AdminController extends Controller
         // On vérifie si on est connecté et si "ROLE_ADMIN" est dans nos rôles
 
 
-        if ((('user')) && in_array('ROLE_ADMIN', Session::get('user','roles'))){
+        if (Session::get('user') && in_array('ROLE_ADMIN', Session::get('user')['roles'])){
             // On est admin
             return true;
         }else{
