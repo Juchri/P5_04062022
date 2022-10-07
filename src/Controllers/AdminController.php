@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\CommentsModel;
 use App\Models\PostsModel;
 use App\Models\UsersModel;
+use App\Utils\Session;
 
 class AdminController extends Controller
 {
@@ -105,14 +106,15 @@ class AdminController extends Controller
     private function isAdmin()
     {
         // On vérifie si on est connecté et si "ROLE_ADMIN" est dans nos rôles
-        if(isset($_SESSION['user']) && in_array('ROLE_ADMIN', $_SESSION['user']['roles'])){
+
+
+        if ((('user')) && in_array('ROLE_ADMIN', Session::get('user','roles'))){
             // On est admin
             return true;
         }else{
             // On n'est pas admin
-            $_SESSION['erreur'] = "Vous n'avez pas accès à cette zone";
-            header('Location: index.php?p=post');
-            exit;
+            Session::set('erreur',"Vous n'avez pas accès à cette zone");
+               // header('Location: index.php?p=post');
         }
     }
 }

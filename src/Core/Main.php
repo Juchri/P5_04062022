@@ -2,6 +2,7 @@
 namespace App\Core;
 
 use App\Controllers\MainController;
+use App\Utils\Session;
 
 /**
  * Routeur principal
@@ -11,7 +12,9 @@ class Main
     public function start()
     {
         // On démarre la session
-        session_start();
+
+         session_start(); 
+        // $session = new Session; -> ça ne marche pas 
 
         // On retire le "trailing slash" éventuel de l'URL
         // On récupère l'URL

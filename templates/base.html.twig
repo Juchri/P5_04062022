@@ -32,9 +32,11 @@
 							<li class="nav-item">
 								<a class="nav-link" href="index.php?p=users/profile/{{session.user.id}}">Profil</a>
 							</li>
+							{% if session.user.email is not null and 'ROLE_ADMIN' in session.user.roles %}
 							<li class="nav-item">
-								<a class="nav-link" href="index.php?p=admin">Admin</a>
+								<a class="nav-link"href="index.php?p=admin">Administration</a>
 							</li>
+							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link" href="index.php?p=users/logout">Déconnexion</a>
 							</li>

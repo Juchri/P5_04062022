@@ -51,7 +51,7 @@ class PostsController extends Controller
                     if (in_array('ROLE_ADMIN', Session::get('user', 'roles'))) {
                         $commentModel->setIsValid(1);
                     } else {
-                      $session->set('message',"Votre commentaire est bien ajouté ! Un admin doit le valider avant de l'afficher");
+                      Session::set('message',"Votre commentaire est bien ajouté ! Un admin doit le valider avant de l'afficher");
                     }
                     $commentModel->create();
                     header(('Location: index.php?p=posts/show/'.$id));

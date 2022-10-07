@@ -13,3 +13,22 @@ Show = only validated comments
 Commencer : 2 onglets (comments + posts)
 
 Lien github : https://github.com/MedBenYsf/php-mvc-twig
+
+Obj session 19 septembre :
+
+1. switcher sur develop et vérifier que ça contient tout (sinon git merge) // NE PAS FAIRE DE MERGE REQUEST
+2. Regarder htaccess => MAMP => redirections plus propres + regarder la sécurité (ex : failles XSS, injections SQL)
+3. travailler truc de sécurité sur develop
+
+
+
+
+
+        Session::put('foo', 'bar');
+        $bar = Session::get('foo');
+        Session::forget('foo');
+
+
+Session 19 septembre : 
+
+Virtual host => pour faire sa propre url

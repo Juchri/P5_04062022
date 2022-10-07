@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+// use App\Utils\Session; => comment utiliser d'un autre namespace ?
+
 
 abstract class Controller
 {
@@ -13,7 +15,7 @@ abstract class Controller
    {
        $this->loader = new FilesystemLoader(ROOT. '/templates');
        $this->twig = new Environment($this->loader);
-       $this->twig->addGlobal('session', $_SESSION);
-
+        $this->twig->addGlobal('session', $_SESSION); // que faire ? 
+       // new Session;
    }
 }

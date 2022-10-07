@@ -6,12 +6,12 @@ class Session{
 
     static function getInstance(){
         if(!self::$instance){
-            self::$instance = new Session();
+            self::$instance = new Session(); //Singleton : regarder !!
         }
         return self::$instance;
     }
 
-    public function __construct(){
+    private function __construct(){
         session_start();
     }
 
@@ -28,10 +28,10 @@ class Session{
             if(isset($item) && isset($_SESSION[$key][$item])) {
                 return $_SESSION[$key][$item];
             }
-    
+
             return $_SESSION[$key];
-        } 
-    
+        }
+
         return NULL; //not found
     }
 }

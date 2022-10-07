@@ -1,5 +1,6 @@
 <?php
 namespace App\Models;
+use App\Utils\Session; //même question pour le namespace ?
 
 class UsersModel extends Model
 {
@@ -30,8 +31,9 @@ class UsersModel extends Model
      * Crée la session de l'utilisateur
      * @return void 
      */
-    public function setSession()
+    public function setSession() // Session utile ici ? 
     {
+        
         $_SESSION['user'] = [
             'id' => $this->id,
             'first_name' => $this->first_name,
@@ -39,7 +41,9 @@ class UsersModel extends Model
             'email' => $this->email,
             'roles' => $this->roles
         ];
-        unset($_SESSION['erreur']);
+
+       // unset($_SESSION['erreur']);
+        Session::forget('erreur'); 
     }
 
     /**
