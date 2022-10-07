@@ -20,13 +20,14 @@ class UsersController extends Controller
         if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])){
             // On va chercher dans la base de données l'utilisateur avec l'email entré
             $usersModel = new UsersModel;
-            $userArray = $usersModel->findOneByEmail(strip_tags($_POST['email']));
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+            $userArray = $usersModel->findOneByEmail($email);
 
             // Si l'utilisateur n'existe pas
             if(!$userArray){
                 // On envoie un message de session
                 if(Session::get('erreur')){
-                    echo "L\'adresse e-mail et/ou le mot de passe est incorrect";
+                    pint_r("L\'adresse e-mail et/ou le mot de passe est incorrect");
                    // header('Location: index.php?p=post');
                 }
                 header('Location: index.php?p=/users/login');
@@ -71,9 +72,9 @@ class UsersController extends Controller
             isset($_POST['email']) && !empty($_POST['email']) &&
             isset($_POST['password']) && !empty($_POST['password'])){
             // On "nettoie" l'adresse email
-            $firstName = strip_tags($_POST['firstName']);
-            $lastName = strip_tags($_POST['lastName']);
-            $email = strip_tags($_POST['email']);
+            $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_SPECIAL_CHARS);
+            $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 
             // On chiffre le mot de passe
             $pass = password_hash($_POST['password'], PASSWORD_ARGON2I);

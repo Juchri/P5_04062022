@@ -60,8 +60,8 @@ class AdminController extends Controller
             $postModel = new PostsModel;
 
             if (isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['content']) && !empty($_POST['content']) ) {
-                $title = strip_tags($_POST['title']);
-                $content = strip_tags($_POST['content']);
+                $title =  wp_unslash(strip_tags($_POST['title']));
+                $content = wp_unslash(strip_tags($_POST['content']));
                 $postModel
                     ->settitle($title)
                     ->setContent($content)
