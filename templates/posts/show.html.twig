@@ -11,7 +11,8 @@
             {{ session.message}}
         </div>
     {% endif %}
-    <h2>Page d'un post</h2>
+    <h2><a href="index.php?p=posts" class="btn btn-secondary mt-2 bg-secondary">Retour aux articles</a></h2>
+
     <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
     <h4>Commentaires</h4>
@@ -32,6 +33,7 @@
     {% endif %}
 
     {% if session.user.email is not null %}
+
     <form method="post">
         <div class="form-group">
             <input type="text" name="comment" class="form-control">
@@ -40,5 +42,8 @@
     </form>
 
     {% endif %}
-    <h2><a href="index.php?p=posts">Liste de posts</a></h2>
+
 {% endblock %}
+
+
+

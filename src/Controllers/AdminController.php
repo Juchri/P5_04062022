@@ -22,7 +22,7 @@ class AdminController extends Controller
             if (isset($_POST['supprimer'])) {
                 $postId = $_POST['postId'];
                 $postModel->delete($postId);
-                header(('Location: /admin/posts'));
+                header(('Location: index.php?p=admin/posts'));
             }
 
 

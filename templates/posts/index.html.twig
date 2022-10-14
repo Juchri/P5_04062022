@@ -1,9 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h2 class="mt-4">Liste de posts</h2>
+    <h2 class="mt-4">Tous nos articles</h2>
     {% for post in posts %}
-        <h2 class="mt-4"><a href="index.php?p=posts/show/{{post.id}}">{{ post.title }}</a></h2>
+        <h2 class="mt-4 h3 font-weight-bold font-italic"><a href="index.php?p=posts/show/{{post.id}}">{{ post.title }}</a></h2>
         <p>{{ post.content }}</p>
     {% endfor %}
 {% endblock %}
