@@ -2,6 +2,7 @@
 namespace App\Core;
 
 use App\Controllers\MainController;
+use App\Utils\Session;
 
 /**
  * Routeur principal
@@ -11,7 +12,9 @@ class Main
     public function start()
     {
         // On démarre la session
-        session_start();
+
+         session_start(); 
+        // $session = new Session; -> ça ne marche pas 
 
         // On retire le "trailing slash" éventuel de l'URL
         // On récupère l'URL
@@ -54,7 +57,7 @@ class Main
                 (isset($params[0])) ? call_user_func_array([$controller, $action], $params) : $controller->$action();
             }else{
                 http_response_code(404);
-                echo "La page recherchée n'existe pas";
+                print_r("La page recherchée n'existe pas");
             }
 
         }else{

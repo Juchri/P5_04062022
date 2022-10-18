@@ -40,18 +40,18 @@ class PostsController extends Controller
         $commentModel = new CommentsModel;
         $postComments = $commentModel->findBy(['post_id' => $id, 'is_valid' => 1]);
 
-        if ((Session::get('user')) && !empty(Session::get('user','id'))) {
+        if ((Session::get('user')) && !empty(Session::get('user')['id'])) {
                 if (isset($_POST['comment']) && !empty($_POST['comment'])) {
                     $content = strip_tags($_POST['comment']);
                     $commentModel->setContent($content)
-                                 ->setUserId(Session::get('user', 'id'))
+                                 ->setUserId(Session::get('user')['id'])
                                  ->setPostId($id)
-                                 ->setAuthor(Session::get('user', 'first_name') . ' ' . Session::get('user', 'last_name'));
+                                 ->setAuthor(Session::get('user')['first_name'] . ' ' . Session::get('user')['last_name']);
 
-                    if (in_array('ROLE_ADMIN', Session::get('user', 'roles'))) {
+                    if (in_array('ROLE_ADMIN', Session::get('user')['roles'])) {
                         $commentModel->setIsValid(1);
                     } else {
-                      $session->set('message',"Votre commentaire est bien ajouté ! Un admin doit le valider avant de l'afficher");
+                      Session::set('message',"Votre commentaire est bien ajouté ! Un admin doit le valider avant de l'afficher");
                     }
                     $commentModel->create();
                     header(('Location: index.php?p=posts/show/'.$id));

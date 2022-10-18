@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\CommentsModel;
 use App\Models\PostsModel;
 use App\Models\UsersModel;
+use App\Utils\Session;
 
 class AdminController extends Controller
 {
@@ -21,7 +22,7 @@ class AdminController extends Controller
             if (isset($_POST['supprimer'])) {
                 $postId = $_POST['postId'];
                 $postModel->delete($postId);
-                header(('Location: /admin/posts'));
+                header(('Location: index.php?p=admin/posts'));
             }
 
 
@@ -59,8 +60,8 @@ class AdminController extends Controller
             $postModel = new PostsModel;
 
             if (isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['content']) && !empty($_POST['content']) ) {
-                $title = strip_tags($_POST['title']);
-                $content = strip_tags($_POST['content']);
+                $title = filter_input(INPUT_POST, 'title');
+                $content = filter_input(INPUT_POST, 'content');
                 $postModel
                     ->settitle($title)
                     ->setContent($content)
@@ -105,14 +106,15 @@ class AdminController extends Controller
     private function isAdmin()
     {
         // On vérifie si on est connecté et si "ROLE_ADMIN" est dans nos rôles
-        if(isset($_SESSION['user']) && in_array('ROLE_ADMIN', $_SESSION['user']['roles'])){
+
+
+        if (Session::get('user') && in_array('ROLE_ADMIN', Session::get('user')['roles'])){
             // On est admin
             return true;
         }else{
             // On n'est pas admin
-            $_SESSION['erreur'] = "Vous n'avez pas accès à cette zone";
-            header('Location: index.php?p=post');
-            exit;
+            Session::set('erreur',"Vous n'avez pas accès à cette zone");
+               // header('Location: index.php?p=post');
         }
     }
 }

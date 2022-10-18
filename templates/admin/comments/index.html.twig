@@ -9,7 +9,10 @@
             <p class="col-md-6">
                 {{ comment.content}}
                 <span>
-                    at {{ comment.created_at|date('d/m/y')}}
+                    - Le {{ comment.created_at|date('d/m/y H:i')}}
+                </span>
+                  <span class="fst-italic text-secondary">
+                    - Écrit par {{ comment.author}}
                 </span>
             </p>
             <div class="col-md-6">

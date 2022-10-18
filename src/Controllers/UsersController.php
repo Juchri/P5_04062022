@@ -3,25 +3,33 @@ namespace App\Controllers;
 
 use App\Core\Form;
 use App\Models\UsersModel;
+use App\Utils\Session;
 
 class UsersController extends Controller
 {
     /**
      * Connexion des utilisateurs
-     * @return void 
+     * @return void
      */
     public function login(){
-        unset($_SESSION['erreur']);
+
+        //unset($_SESSION['erreur']);
+        Session::forget('erreur'); 
+
         // On vérifie si le formulaire est complet
         if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])){
             // On va chercher dans la base de données l'utilisateur avec l'email entré
             $usersModel = new UsersModel;
-            $userArray = $usersModel->findOneByEmail(strip_tags($_POST['email']));
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+            $userArray = $usersModel->findOneByEmail($email);
 
             // Si l'utilisateur n'existe pas
             if(!$userArray){
                 // On envoie un message de session
-                $_SESSION['erreur'] = 'L\'adresse e-mail et/ou le mot de passe est incorrect';
+                if(Session::get('erreur')){
+                    pint_r("L\'adresse e-mail et/ou le mot de passe est incorrect");
+                   // header('Location: index.php?p=post');
+                }
                 header('Location: index.php?p=/users/login');
                 exit;
             }
@@ -38,7 +46,10 @@ class UsersController extends Controller
                 exit;
             }else{
                 // Mauvais mot de passe
-                $_SESSION['erreur'] = 'L\'adresse e-mail et/ou le mot de passe est incorrect';
+                if(Session::get('erreur')){
+                    echo "L\'adresse e-mail et/ou le mot de passe est incorrect";
+                   // header('Location: index.php?p=post');
+                }
                 header('Location: index.php?p=/users/login');
                 exit;
             }
@@ -61,9 +72,9 @@ class UsersController extends Controller
             isset($_POST['email']) && !empty($_POST['email']) &&
             isset($_POST['password']) && !empty($_POST['password'])){
             // On "nettoie" l'adresse email
-            $firstName = strip_tags($_POST['firstName']);
-            $lastName = strip_tags($_POST['lastName']);
-            $email = strip_tags($_POST['email']);
+            $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_SPECIAL_CHARS);
+            $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 
             // On chiffre le mot de passe
             $pass = password_hash($_POST['password'], PASSWORD_ARGON2I);
@@ -79,29 +90,36 @@ class UsersController extends Controller
 
             // On stocke l'utilisateur
             $user->create();
+
             unset($_SESSION['erreur']);
-            $_SESSION['message'] = "Votre compte a bien été crée";
+            $_SESSION['message'] = "Votre compte a bien été créé";
+
+            //Session::forget('erreur');
+            //Session::set('message',"Votre compte a bien été créé");
+
         header('Location: ?p=users/login');
         }
 
-        $this->twig->display('users/register.html.twig');     
+        $this->twig->display('users/register.html.twig');
     }
 
     public function profil()
     {
-        $this->twig->display('users/profil.html.twig');     
+        $this->twig->display('users/profil.html.twig');
     }
 
 
     /**
      * Déconnexion de l'utilisateur
-     * @return exit 
+     * @return exit
      */
 
     public function logout(){
-        unset($_SESSION['user']);
-        unset($_SESSION['message']);
-        unset($_SESSION['erreur']);
+
+        Session::forget('user');
+        Session::forget('message');
+        Session::forget('erreur');
+
         header('Location: index.php?p=/users/login');
         exit;
     }
