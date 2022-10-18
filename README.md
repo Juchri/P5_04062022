@@ -5,7 +5,7 @@ Bonjour, ceci est le projet 5 dans le programme Développeur d'application - PHP
 Voici un lien vers le repository github : https://github.com/Juchri/P5_19112021 
 
 Vous pouvez le télécharger puis ouvrir le projet grâce à 
-1- L'application Mamp : http://127.0.0.1:8888/
+1- L'application Mamp : http://127.0.0.1:8888/P5_04062022/public/index.php?p=main
 2- L'installation de Twig grâce à composer : `composer require "twig/twig:^2.0"`
 
 
