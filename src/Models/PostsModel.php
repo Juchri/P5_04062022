@@ -2,10 +2,12 @@
 namespace App\Models;
 
 class PostsModel extends Model
-{   
+{
     protected $id;
     protected $title;
+    protected $hat;
     protected $content;
+    protected $author;
     protected $created_at;
     protected $updated_at;
 
@@ -16,7 +18,7 @@ class PostsModel extends Model
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -54,6 +56,26 @@ class PostsModel extends Model
         return $this;
     }
 
+       /**
+     * Get the value of hat
+     */ 
+    public function gethat()
+    {
+        return $this->hat;
+    }
+
+    /**
+     * Set the value of hat
+     *
+     * @return  self
+     */ 
+    public function sethat($hat)
+    {
+        $this->hat = $hat;
+
+        return $this;
+    }
+
     /**
      * Get the value of content
      */ 
@@ -71,6 +93,17 @@ class PostsModel extends Model
     {
         $this->content = $content;
 
+        return $this;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
         return $this;
     }
 

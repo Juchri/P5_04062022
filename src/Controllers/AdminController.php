@@ -43,7 +43,6 @@ class AdminController extends Controller
                     $comment->update();
                 }
                 header(('Location: index.php?p=admin/comments'));
-
             } elseif (isset($_POST['supprimer'])) {
                 $commentId = $_POST['commentId'];
                 $commentModel->delete($commentId);
@@ -60,11 +59,14 @@ class AdminController extends Controller
             $postModel = new PostsModel;
 
             if (isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['content']) && !empty($_POST['content']) ) {
-                $title = filter_input(INPUT_POST, 'title');
-                $content = filter_input(INPUT_POST, 'content');
+                $title = strip_tags($_POST['title']);
+                $hat = strip_tags($_POST['hat']);
+                $content = strip_tags($_POST['content']);
                 $postModel
                     ->settitle($title)
+                    ->setHat($hat)
                     ->setContent($content)
+                    ->setAuthor(Session::get('user')['first_name'] . ' ' . Session::get('user')['last_name'])
                     ->setCreatedAt((new \DateTime())->format('Y-m-d H:i:s'))
                     ->setUpdatedAt((new \DateTime())->format('Y-m-d H:i:s'));
                 
@@ -83,9 +85,11 @@ class AdminController extends Controller
 
             if (isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['content']) && !empty($_POST['content']) ) {
                 $title = strip_tags($_POST['title']);
+                $hat = strip_tags($_POST['hat']);
                 $content = strip_tags($_POST['content']);
                 $post
                     ->setTitle($title)
+                    ->setHat($hat)
                     ->setContent($content)
                     ->setUpdatedAt((new \DateTime())->format('Y-m-d H:i:s'));
                 
@@ -106,15 +110,13 @@ class AdminController extends Controller
     private function isAdmin()
     {
         // On vérifie si on est connecté et si "ROLE_ADMIN" est dans nos rôles
-
-
         if (Session::get('user') && in_array('ROLE_ADMIN', Session::get('user')['roles'])){
             // On est admin
             return true;
         }else{
             // On n'est pas admin
             Session::set('erreur',"Vous n'avez pas accès à cette zone");
-               // header('Location: index.php?p=post');
+            // header('Location: index.php?p=post');
         }
     }
 }

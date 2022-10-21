@@ -8,9 +8,12 @@
         {% for post in posts %}
         <div class="row">
             <p class="col-md-6">
-                {{ post.title}}
+                "{{ post.title}}"
                 <span>
-                    at {{ post.created_at|date('d/m/Y')}}
+                    le {{ post.created_at|date('d/m/Y')}}
+                </span>
+                <span class="fst-italic text-secondary">
+                    - Écrit par {{ post.author}}
                 </span>
             </p>
             <div class="col-md-6">

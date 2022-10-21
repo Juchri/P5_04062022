@@ -4,6 +4,10 @@
     <h2 class="mt-4">Tous nos articles</h2>
     {% for post in posts %}
         <h2 class="mt-4 h3 font-weight-bold font-italic"><a href="index.php?p=posts/show/{{post.id}}">{{ post.title }}</a></h2>
+        <h3 class="h5">{{ post.hat }}</h2>
         <p>{{ post.content }}</p>
+        <span class="fst-italic text-secondary">
+            - Écrit par {{ post.author}}
+        </span>
     {% endfor %}
 {% endblock %}
