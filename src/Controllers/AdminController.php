@@ -66,6 +66,7 @@ class AdminController extends Controller
                     ->settitle($title)
                     ->setHat($hat)
                     ->setContent($content)
+                    ->setAuthor(Session::get('user')['first_name'] . ' ' . Session::get('user')['last_name'])
                     ->setCreatedAt((new \DateTime())->format('Y-m-d H:i:s'))
                     ->setUpdatedAt((new \DateTime())->format('Y-m-d H:i:s'));
                 
