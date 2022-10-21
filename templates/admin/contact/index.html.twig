@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2>Gestion des messages</h2>
+    <hr />
+    {% if allMessages|length > 0 %}
+        {% for message in allMessages %}
+        <div class="row">
+            <p class="h6"> {{ message.created_at|date('d/m/y H:i')}} </p>
+            <p class="col-md-6">
+                {{ message.content}}
+                  <span class="fst-italic text-secondary">
+                    - Écrit par {{ message.first_name }} {{ message.last_name }}
+                    <br/>Répondre à <a href="mailto:{{ message.mail }}"> {{ message.mail }} </a>
+                </span>
+            </p>
+        </div>
+        {% endfor %}
+    {% else %}
+        Pas de messages !
+    {% endif %}
+{% endblock %}

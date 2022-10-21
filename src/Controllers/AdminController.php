@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\CommentsModel;
 use App\Models\PostsModel;
 use App\Models\UsersModel;
+use App\Models\ContactModel;
 use App\Utils\Session;
 
 class AdminController extends Controller
@@ -23,8 +24,11 @@ class AdminController extends Controller
                 $postId = $_POST['postId'];
                 $postModel->delete($postId);
                 header(('Location: index.php?p=admin/posts'));
+            }elseif(isset($_POST['update'])) {
+                $postId = $_POST['postId'];
+                $postModel->update($postId);
+                header(('Location: index.php?p=admin/posts'));
             }
-
 
             $this->twig->display('admin/posts/index.html.twig', ['posts' => $allPosts]);     
         }
@@ -54,6 +58,16 @@ class AdminController extends Controller
         }
     }
 
+
+    public function contact() {
+        if($this->isAdmin()){
+            $messages = new ContactModel;
+            $allMessages = $messages->findAll();
+
+            $this->twig->display('admin/contact/index.html.twig', ['allMessages' => $allMessages]);
+        }
+    }
+
     public function add() {
         if($this->isAdmin()){
             $postModel = new PostsModel;
@@ -69,7 +83,7 @@ class AdminController extends Controller
                     ->setAuthor(Session::get('user')['first_name'] . ' ' . Session::get('user')['last_name'])
                     ->setCreatedAt((new \DateTime())->format('Y-m-d H:i:s'))
                     ->setUpdatedAt((new \DateTime())->format('Y-m-d H:i:s'));
-                
+
                 $postModel->create();
                 header(('Location: index.php?p=admin/posts'));
             }

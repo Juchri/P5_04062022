@@ -9,5 +9,8 @@
         <span class="fst-italic text-secondary">
             - Écrit par {{ post.author}}
         </span>
+        <span class="fst-italic text-secondary px-3">
+            - Modifié le {{ post.updated_at|date('d/m/y')}}
+        </span>
     {% endfor %}
 {% endblock %}

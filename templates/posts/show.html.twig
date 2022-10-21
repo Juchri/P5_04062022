@@ -16,7 +16,10 @@
     <h2>{{ post.title }}</h2>
     <h3 class="h5">{{ post.hat }}</h2>
     <p>{{ post.content }}</p>
-    <h4>Commentaires</h4>
+    <span class="fst-italic text-secondary">
+       Modifié le {{ post.updated_at|date('d/m/y')}}
+    </span>
+    <h4 class="mt-2">Commentaires</h4>
       {% if postComments|length > 0 %}
         {% for comment in postComments %}
         <p>
@@ -26,7 +29,7 @@
             <span>
                 - Le {{ comment.created_at|date('d/m/y')}}
             </span>
-            <hr />
+            <br />
         </p>
         {% endfor %}
     {% else %}

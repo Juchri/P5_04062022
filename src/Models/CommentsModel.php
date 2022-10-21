@@ -2,7 +2,7 @@
 namespace App\Models;
 
 class CommentsModel extends Model
-{   
+{
     protected $id;
     protected $content;
     protected $created_at;
@@ -84,7 +84,6 @@ class CommentsModel extends Model
     public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 
