@@ -5,6 +5,7 @@ class PostsModel extends Model
 {   
     protected $id;
     protected $title;
+    protected $hat;
     protected $content;
     protected $created_at;
     protected $updated_at;
@@ -50,6 +51,26 @@ class PostsModel extends Model
     public function settitle($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+       /**
+     * Get the value of hat
+     */ 
+    public function gethat()
+    {
+        return $this->hat;
+    }
+
+    /**
+     * Set the value of hat
+     *
+     * @return  self
+     */ 
+    public function sethat($hat)
+    {
+        $this->hat = $hat;
 
         return $this;
     }

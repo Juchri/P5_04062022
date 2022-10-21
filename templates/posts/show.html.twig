@@ -14,6 +14,7 @@
     <h2><a href="index.php?p=posts" class="btn btn-secondary mt-2 bg-secondary">Retour aux articles</a></h2>
 
     <h2>{{ post.title }}</h2>
+    <h3 class="h5">{{ post.hat }}</h2>
     <p>{{ post.content }}</p>
     <h4>Commentaires</h4>
       {% if postComments|length > 0 %}
